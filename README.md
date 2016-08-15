@@ -7,9 +7,9 @@ a. Sign up for an account at http://developers.atlassian.com. Atlassian offers t
 
 b. Consider signing up for an account at bitbucket.org if you don’t already have a SCM or if you want to try out a nice cloud based code collaboration tool that provides Git repos to host your code and also offers integration with several tool suites including a cloud based continuous integration and delivery tool. More on this later…
 
-2. Issues with the tutorial
+2. Issues with the atlassian tutorial
 
-I started exploring the server side development and accessed the tutorial at https://developer.atlassian.com/docs/getting-started/set-up-the-atlassian-plugin-sdk-and-build-a-project. The tutorial does a great job at the setup and gets you going, but it is dated.
+I started exploring the server side development and accessed the atlassian tutorial at https://developer.atlassian.com/docs/getting-started/set-up-the-atlassian-plugin-sdk-and-build-a-project. The tutorial does a great job at the setup and gets you going, but it is dated.
 
 Most of my time really went into trouble shooting issues with dependencies in pom.xml and conflicting directives in the plugin config file: atlassian-plugin.xml
 
@@ -49,30 +49,13 @@ The Atlassian-plugin.xml file should not contain any of the <component-import> t
 	private final PluginSettingsFactory pluginSettingsFactory;
 This needs to be updated in the tutorial.
 
-3. Use a RefApp
+2. Build for RefApp
 
 Instead of developing for a particular tool like jira or confluence, developing for RefApp gives you the flexibility of completing your plugin development irrespective of the tool and then generating a plugin version for the target tool. RefApp provides the shared framework between all Atlassian applications. This means that you can develop your plugin without accidentally relying on dependencies or features specific to one application, or encountering an application-specific bug later on. Developing a plugin with RefApp eliminates guesswork about the functionality of your project. You can rest assured that since all Atlassian applications share at least the framework present in RefApp, your plugin will work as expected.
 
- 4. Leverage bitbucket pipeline
 
-One of the other advantages of hosting your code at bitbucket.org is that you can use Bitbucket pipeline. Bitbucket pipleline is a new offering and still in beta. I happen to be part of the beta program and got an opportunity to kick the tires. In short the tool is a continuous integration and continuous delivery tool that relies on the presence of a bitbucket-pipelines.yml file in your top level of your project. The yml file with the below directives helped me build my plugin on the cloud. The pipeline relies on running builds, tests and deployment with pre-configured docker images. Anytime you update your code, the pipleline runs based on the directives as in the below yml file.
 
-# You can use a Docker image from Docker Hub or your own container
-# registry for your build environment.
 
-image: translucent/atlassian-plugin-sdk
-
-pipelines:
-  default:
-    - step:
-        script: # Modify the commands below to build your repository.
-          - cd adminUI
-          - pwd
-          - atlas-version
-          - atlas-mvn clean install
- 
-
-5. Develop an Atlassian plugin like its 2016
 
 Some interesting ideas to explore once you have the basic tutorial up and running is how to take your plugin to the next level with ideas on how data should be retrieved only using the REST API and UI should be rendered on the client site by adding javascript libraries such as Babel and Webpack
 
